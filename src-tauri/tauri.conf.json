@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "green-bot",
+  "version": "1.0.3",
+  "identifier": "dose.logik.green-bot",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "green-bot",
+        "width": 1180,
+        "height": 800,
+        "minWidth": 1180,
+        "minHeight": 800,
+        "decorations": true,
+        "transparent": true,
+        "shadow": false,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "windowEffects": {
+          "effects": [
+            "mica",
+            "acrylic",
+            "blur"
+          ]
+        }
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [
+      "binaries"
+    ]
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDE2NkFEREFGNTgwNEFENEYKUldSUHJRUllyOTFxRm4xYmVsVTYxRzJDWTdpL2N6WGZIbklxRlJVM2IvR1BtRWdkUng3ODVhd3MK",
+      "endpoints": [
+        "https://github.com/akshayejh/green-bot/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}
