@@ -11,10 +11,48 @@
 
   <p>
     <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
-    <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="Version" />
+    <img src="https://img.shields.io/github/v/release/akshayejh/green-bot?label=version" alt="Version" />
     <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platform" />
   </p>
 </div>
+
+---
+
+## 📥 Download
+
+<div align="center">
+  <p>Get the latest version for your operating system.</p>
+  
+  <a href="https://github.com/akshayejh/green-bot/releases/latest">
+    <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="Download for macOS" />
+  </a>
+  <a href="https://github.com/akshayejh/green-bot/releases/latest">
+    <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows" />
+  </a>
+  <a href="https://github.com/akshayejh/green-bot/releases/latest">
+    <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Download for Linux" />
+  </a>
+</div>
+
+<br />
+
+### Automated Install Scripts
+
+For a quick installation via terminal:
+
+#### Linux & macOS
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.sh | sh
+```
+
+#### Windows
+
+```powershell
+iwr -useb https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.ps1 | iex
+```
+
+For manual downloads and troubleshooting, see the [Installation Guide](INSTALL.md).
 
 ---
 
@@ -59,22 +97,6 @@ Green Bot is designed to be a lightweight, portable alternative to heavy Android
 - **Styling**: TailwindCSS, Shadcn UI
 - **State Management**: Zustand
 - **Icons**: Lucide React
-
-## ⬇️ Install
-
-### Linux & macOS
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.sh | sh
-```
-
-### Windows
-
-```powershell
-iwr -useb https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.ps1 | iex
-```
-
-For manual downloads and troubleshooting, see the [Installation Guide](INSTALL.md).
 
 ## 🚀 Getting Started
 

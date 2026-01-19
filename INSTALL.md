@@ -1,5 +1,17 @@
 # Installation Guide
 
+<div align="center">
+  <a href="https://github.com/akshayejh/green-bot/releases/latest">
+    <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="Download for macOS" />
+  </a>
+  <a href="https://github.com/akshayejh/green-bot/releases/latest">
+    <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows" />
+  </a>
+  <a href="https://github.com/akshayejh/green-bot/releases/latest">
+    <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Download for Linux" />
+  </a>
+</div>
+
 ## 🚀 Quick Install
 
 ### Linux & macOS

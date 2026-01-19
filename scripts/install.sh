@@ -31,16 +31,9 @@ case "$OS" in
         else
             echo "Intel Mac detected."
         fi
-        # macOS usually requires mounting DMG to install, which is hard in a curl script.
-        # A better approach for script-install on macOS is usually downloading a .tar.gz bundle if available, 
-        # or suggesting Homebrew. 
-        # For this script, we will try to handle .app directly if distributed as .tar.gz, 
-        # or just fail gracefully suggesting Homebrew.
         
-        echo "For macOS, we recommend using Homebrew once the tap is set up."
-        echo "Run: brew install ${OWNER}/tap/${BINARY}"
-        echo "Alternatively, download the .dmg from GitHub releases."
-        exit 0
+        # We will attempt to download and mount the DMG or extract the App if available.
+        ASSET_EXT=".dmg"  # Prioritize DMG for macOS
         ;;
     *)
         echo "Unsupported OS: $OS"
@@ -49,19 +42,47 @@ case "$OS" in
 esac
 
 echo "Fetching latest release..."
-LATEST_URL=$(curl -s "https://api.github.com/repos/$OWNER/$REPO/releases/latest" | grep "browser_download_url" | grep "$ASSET_EXT" | cut -d '"' -f 4)
+# Note: This requires the repository to be Public and the release to be 'Published' (not Draft).
+RELEASE_DATA=$(curl -s "https://api.github.com/repos/$OWNER/$REPO/releases/latest")
+LATEST_URL=$(echo "$RELEASE_DATA" | grep "browser_download_url" | grep "$ASSET_EXT" | grep "$ASSET_PATTERN" | cut -d '"' -f 4 | head -n 1)
 
 if [ -z "$LATEST_URL" ]; then
-    echo "Could not find a release asset for your platform."
+    echo "Could not find a release asset for your platform ($OS $ARCH)."
+    echo "This might happen if:"
+    echo "1. There are no published releases (Drafts are hidden from this script)."
+    echo "2. The release doesn't have an '$ASSET_EXT' asset for '$ASSET_PATTERN'."
     exit 1
 fi
 
 echo "Downloading $LATEST_URL..."
-curl -L -o "$BINARY$ASSET_EXT" "$LATEST_URL"
+curl -L -o "green-bot-installer$ASSET_EXT" "$LATEST_URL"
 
 if [ "$OS" == "Linux" ]; then
-    chmod +x "$BINARY$ASSET_EXT"
+    chmod +x "green-bot-installer$ASSET_EXT"
     echo "Moving to $INSTALL_DIR..."
-    sudo mv "$BINARY$ASSET_EXT" "$INSTALL_DIR/$BINARY"
+    sudo mv "green-bot-installer$ASSET_EXT" "$INSTALL_DIR/$BINARY"
     echo "Installation complete! You can now run '$BINARY' from your terminal."
+elif [ "$OS" == "Darwin" ]; then
+    echo "Mounting DMG..."
+    hdiutil attach "green-bot-installer$ASSET_EXT" -nobrowse -quiet
+    echo "Installing to /Applications..."
+    # Copy the .app from the mounted volume to /Applications
+    # The volume name is usually the release name or product name. We assume 'green-bot'.
+    # Because we don't know the exact Volume name for sure, we find it.
+    
+    VOL_NAME=$(ls /Volumes | grep -i "Green Bot" | head -n 1)
+    if [ -z "$VOL_NAME" ]; then
+        # Fallback search
+        VOL_NAME=$(ls /Volumes | grep -i "green" | head -n 1)
+    fi
+
+    if [ -n "$VOL_NAME" ]; then
+        sudo cp -R "/Volumes/$VOL_NAME/Green Bot.app" /Applications/
+        echo "Unmounting DMG..."
+        hdiutil detach "/Volumes/$VOL_NAME" -quiet
+        rm "green-bot-installer$ASSET_EXT"
+        echo "Installation complete! 'Green Bot' is now in your Applications folder."
+    else
+        echo "Could not detect mounted volume. Please open 'green-bot-installer$ASSET_EXT' manually to install."
+    fi
 fi
