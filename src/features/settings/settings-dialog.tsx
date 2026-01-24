@@ -47,10 +47,16 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
             }
         } catch (error) {
             console.error("Update check failed:", error);
+            const errorMessage = String(error).toLowerCase();
+
             // Check if running in dev mode
-            const isDev = import.meta.env.DEV;
-            if (isDev) {
+            if (import.meta.env.DEV) {
                 toast.info("Update check is only available in production builds.");
+            } else if (errorMessage.includes('404') || errorMessage.includes('not found')) {
+                // latest.json doesn't exist yet
+                toast.info("No updates available yet. Check back after the next release!");
+            } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+                toast.error("Network error. Check your internet connection.");
             } else {
                 toast.error("Couldn't check for updates. Please try again later.");
             }

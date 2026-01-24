@@ -35,8 +35,8 @@ export function InstallApkDialog({ open: isOpen, onOpenChange, deviceSerial, onI
     useEffect(() => {
         if (!isOpen) return;
 
-        const unlisten = listen<string[]>('tauri://file-drop', (event) => {
-            const files = event.payload;
+        const unlisten = listen<{ paths: string[] }>('tauri://drag-drop', (event) => {
+            const files = event.payload?.paths;
             if (files && files.length > 0) {
                 const file = files[0];
                 if (file.toLowerCase().endsWith('.apk')) {
@@ -49,11 +49,11 @@ export function InstallApkDialog({ open: isOpen, onOpenChange, deviceSerial, onI
             setIsDragging(false);
         });
 
-        const unlistenHover = listen('tauri://file-drop-hover', () => {
+        const unlistenHover = listen('tauri://drag-enter', () => {
             setIsDragging(true);
         });
 
-        const unlistenCancel = listen('tauri://file-drop-cancelled', () => {
+        const unlistenCancel = listen('tauri://drag-leave', () => {
             setIsDragging(false);
         });
 

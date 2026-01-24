@@ -76,13 +76,13 @@ export function FileList({ onPreview }: FileListProps) {
                     <div
                         key={file.name}
                         onClick={() => handleEntryClick(file)}
-                        onContextMenu={(e) => {
-                            handleContextMenu(e, file)
-                        }}
+                        onContextMenu={(e) => handleContextMenu(e, file)}
                         className="grid grid-cols-[auto_1fr_auto_auto] gap-4 p-2 rounded-sm hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm items-center group select-none transition-colors"
                     >
                         <FileIcon name={file.name} isDirectory={file.is_dir} className="w-4 h-4" />
-                        <div className="truncate font-medium group-hover:underline underline-offset-4 decoration-muted-foreground/30">{file.name}</div>
+                        <div className="truncate font-medium group-hover:underline underline-offset-4 decoration-muted-foreground/30">
+                            {file.name}
+                        </div>
                         <div className="text-xs text-muted-foreground font-mono" title={file.permissions}>
                             {getPermissionLabel(file.permissions)}
                         </div>

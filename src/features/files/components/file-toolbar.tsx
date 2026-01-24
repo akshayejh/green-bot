@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowLeft, ArrowUp, Home, RefreshCw, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -5,8 +6,7 @@ import { Toolbar, ToolbarLeft } from "@/components/toolbar";
 import { useFileStore } from "@/store/file-store";
 import { useDeviceStore } from "@/store/device-store";
 import { ProcessIndicator } from "./process-indicator";
-import { open } from "@tauri-apps/plugin-dialog";
-import { useFileUpload } from "../hooks/use-file-upload";
+import { UploadDialog } from "./upload-dialog";
 
 export function FileToolbar() {
     const {
@@ -15,28 +15,10 @@ export function FileToolbar() {
     } = useFileStore();
 
     const selectedSerial = useDeviceStore((state) => state.selectedSerial);
-    const { uploadFiles } = useFileUpload();
+    const [uploadOpen, setUploadOpen] = useState(false);
 
     const handleRefresh = () => {
         loadFiles(selectedSerial);
-    };
-
-    const handleUpload = async () => {
-        if (!selectedSerial) return;
-
-        try {
-            const selected = await open({
-                multiple: true,
-                directory: false,
-            });
-
-            if (!selected) return;
-
-            const files = Array.isArray(selected) ? selected : [selected];
-            await uploadFiles(files);
-        } catch (error) {
-            console.error("File picker error", error);
-        }
     };
 
     return (
@@ -83,7 +65,7 @@ export function FileToolbar() {
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={handleUpload}
+                        onClick={() => setUploadOpen(true)}
                         disabled={!selectedSerial}
                         title="Upload File"
                     >
@@ -100,6 +82,7 @@ export function FileToolbar() {
                 />
             </ToolbarLeft>
             <ProcessIndicator />
+            <UploadDialog open={uploadOpen} onOpenChange={setUploadOpen} />
         </Toolbar>
     );
 }

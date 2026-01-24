@@ -11,8 +11,11 @@ export function useFileUpload() {
   const { addTask, updateTask } = useProcessStore();
 
   const uploadFiles = useCallback(
-    async (files: string[]) => {
+    async (files: string[], targetPath?: string) => {
       if (!selectedSerial) return;
+
+      // Use provided targetPath or fall back to current path
+      const uploadPath = targetPath || path;
 
       for (const localPath of files) {
         // Extract filename from path
@@ -26,7 +29,7 @@ export function useFileUpload() {
           progress: 0,
         });
 
-        const remotePath = path.endsWith("/") ? path + fileName : path + "/" + fileName;
+        const remotePath = uploadPath.endsWith("/") ? uploadPath + fileName : uploadPath + "/" + fileName;
 
         invoke("upload_file", {
           device: selectedSerial,
