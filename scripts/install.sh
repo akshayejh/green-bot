@@ -70,18 +70,28 @@ elif [ "$OS" == "Darwin" ]; then
     # The volume name is usually the release name or product name. We assume 'green-bot'.
     # Because we don't know the exact Volume name for sure, we find it.
     
-    VOL_NAME=$(ls /Volumes | grep -i "Green Bot" | head -n 1)
+    VOL_NAME=$(ls /Volumes | grep -i "green-bot" | head -n 1)
     if [ -z "$VOL_NAME" ]; then
         # Fallback search
         VOL_NAME=$(ls /Volumes | grep -i "green" | head -n 1)
     fi
 
     if [ -n "$VOL_NAME" ]; then
-        sudo cp -R "/Volumes/$VOL_NAME/Green Bot.app" /Applications/
-        echo "Unmounting DMG..."
-        hdiutil detach "/Volumes/$VOL_NAME" -quiet
-        rm "green-bot-installer$ASSET_EXT"
-        echo "Installation complete! 'Green Bot' is now in your Applications folder."
+        # Find the .app file in the volume (handles different naming)
+        APP_NAME=$(ls "/Volumes/$VOL_NAME" | grep -i ".app$" | head -n 1)
+        if [ -n "$APP_NAME" ]; then
+            sudo cp -R "/Volumes/$VOL_NAME/$APP_NAME" /Applications/
+            echo "Unmounting DMG..."
+            hdiutil detach "/Volumes/$VOL_NAME" -quiet
+            rm "green-bot-installer$ASSET_EXT"
+            echo "Installation complete! Green Bot is now in your Applications folder."
+            echo ""
+            echo "⚠️  First launch: If you see 'App is damaged', run:"
+            echo "   xattr -cr /Applications/$APP_NAME"
+        else
+            echo "Could not find .app in volume. Please install manually."
+            hdiutil detach "/Volumes/$VOL_NAME" -quiet
+        fi
     else
         echo "Could not detect mounted volume. Please open 'green-bot-installer$ASSET_EXT' manually to install."
     fi

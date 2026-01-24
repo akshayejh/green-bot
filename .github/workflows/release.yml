@@ -64,7 +64,37 @@ jobs:
         with:
           tagName: v__VERSION__ # the action automatically replaces this with the app version
           releaseName: "Green Bot v__VERSION__"
-          releaseBody: "See the assets to download this version and install."
+          releaseBody: |
+            ## 📥 Download
+
+            | Platform | Download | Notes |
+            |----------|----------|-------|
+            | **macOS** (Apple Silicon) | `green-bot_x.x.x_aarch64.dmg` | M1/M2/M3/M4 Macs |
+            | **macOS** (Intel) | `green-bot_x.x.x_x64.dmg` | Intel Macs |
+            | **Windows** | `green-bot_x.x.x_x64-setup.exe` | Windows 10/11 |
+            | **Windows** (MSI) | `green-bot_x.x.x_x64_en-US.msi` | Alternative installer |
+            | **Linux** (Universal) | `green-bot_x.x.x_amd64.AppImage` | Works on most distros |
+            | **Linux** (Debian/Ubuntu) | `green-bot_x.x.x_amd64.deb` | For apt-based systems |
+            | **Linux** (Fedora/RHEL) | `green-bot_x.x.x.x86_64.rpm` | For dnf/yum systems |
+
+            ---
+
+            ### ⚠️ macOS Users
+            
+            If you see **"App is damaged and can't be opened"**, run this in Terminal:
+            ```bash
+            xattr -cr /Applications/green-bot.app
+            ```
+
+            ---
+
+            ### 🔄 Auto-Updates
+            
+            Already have Green Bot installed? Go to **Settings → Updates → Check for Updates** to update directly from the app.
+
+            ---
+
+            📖 **[Installation Guide](https://github.com/akshayejh/green-bot/blob/main/INSTALL.md)** · 🐛 **[Report a Bug](https://github.com/akshayejh/green-bot/issues/new)**
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}

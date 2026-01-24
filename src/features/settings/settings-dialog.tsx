@@ -32,21 +32,28 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
         try {
             const update = await check();
             if (update?.available) {
-                toast(`Update available: ${update.version}`, {
+                toast.success(`Update available: ${update.version}`, {
                     action: {
                         label: 'Install & Restart',
                         onClick: async () => {
                             await update.downloadAndInstall();
                             await relaunch();
                         }
-                    }
+                    },
+                    duration: 10000,
                 });
             } else {
-                toast("You are on the latest version.");
+                toast.success("You're on the latest version!");
             }
         } catch (error) {
-            console.error(error);
-            toast.error("Failed to check for updates");
+            console.error("Update check failed:", error);
+            // Check if running in dev mode
+            const isDev = import.meta.env.DEV;
+            if (isDev) {
+                toast.info("Update check is only available in production builds.");
+            } else {
+                toast.error("Couldn't check for updates. Please try again later.");
+            }
         } finally {
             setChecking(false);
         }

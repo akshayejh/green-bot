@@ -3,153 +3,238 @@
 <div align="center">
   <img src="public/greenbot-icon.png" alt="Green Bot Logo" width="128" height="128" />
   
-  <h3>A modern, standalone Android device management tool.</h3>
+  <h3>Manage your Android devices without the bloat.</h3>
 
   <p>
-    Built with <a href="https://tauri.app/">Tauri</a>, <a href="https://react.dev/">React</a>, and <a href="https://ui.shadcn.com/">Shadcn UI</a>.
+    A lightweight, standalone tool for device management, file transfer, screen mirroring, and more.<br/>
+    <strong>No Android Studio. No SDK setup. Just download and run.</strong>
   </p>
 
   <p>
-    <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
-    <img src="https://img.shields.io/github/v/release/akshayejh/green-bot?label=version" alt="Version" />
+    <a href="https://github.com/akshayejh/green-bot/releases/latest">
+      <img src="https://img.shields.io/github/v/release/akshayejh/green-bot?label=Download&style=for-the-badge&color=00C853" alt="Download" />
+    </a>
+  </p>
+
+  <p>
     <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platform" />
+    <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
   </p>
 </div>
 
 ---
 
-## 📥 Download
+## 📥 Get Started
 
-<div align="center">
-  <p>Get the latest version for your operating system.</p>
-  
-  <a href="https://github.com/akshayejh/green-bot/releases/latest">
-    <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="Download for macOS" />
-  </a>
-  <a href="https://github.com/akshayejh/green-bot/releases/latest">
-    <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows" />
-  </a>
-  <a href="https://github.com/akshayejh/green-bot/releases/latest">
-    <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Download for Linux" />
-  </a>
-</div>
+Choose your platform to download the latest version:
 
-<br />
+### Download
 
-### Automated Install Scripts
+| Platform | Download | Notes |
+|----------|----------|-------|
+| **macOS** | [Download .dmg](https://github.com/akshayejh/green-bot/releases/latest) | Intel & Apple Silicon |
+| **Windows** | [Download .msi](https://github.com/akshayejh/green-bot/releases/latest) | Windows 10/11 |
+| **Linux** | [Download .AppImage](https://github.com/akshayejh/green-bot/releases/latest) | Also available as .deb |
 
-For a quick installation via terminal:
+> **🍎 macOS Users:** If you see "App is damaged and can't be opened", run this in Terminal:
+> ```bash
+> xattr -cr /Applications/Green\ Bot.app
+> ```
+> This is normal for open-source apps not distributed through the App Store. [Learn why →](INSTALL.md#macos-app-is-damaged-and-cant-be-opened)
 
-#### Linux & macOS
+### One-Line Install (Terminal)
 
+**Linux & macOS:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.sh | sh
 ```
 
-#### Windows
-
+**Windows (PowerShell):**
 ```powershell
 iwr -useb https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.ps1 | iex
 ```
 
-For manual downloads and troubleshooting, see the [Installation Guide](INSTALL.md).
+📖 Need help? See the [Installation Guide](INSTALL.md) for step-by-step instructions and troubleshooting.
 
 ---
 
-## ✨ Features
+## ✨ What Can You Do?
 
-Green Bot is designed to be a lightweight, portable alternative to heavy Android management suites. It bundles necessary binaries (`adb`, `scrcpy`) so you don't need to install anything else on your host machine.
+### 📱 Connect & Manage Devices
 
-- 📱 **Device Management**
-  - Auto-detect connected devices via USB or TCP/IP.
-  - Wireless Debugging support (Connect & Pair).
-  - View device details (Model, Product, Serial).
+Green Bot automatically detects Android devices connected via USB or WiFi.
 
-- 📂 **File Explorer**
-  - Browse device file system in a modern grid/list view.
-  - **Drag & Drop Upload**: Drop files directly into the window to upload.
-  - **Smart Preview**: Preview images and text files directly in the app.
-  - Download and Delete file capabilities.
+> **First time?** You'll need to enable USB Debugging on your phone once (takes 30 seconds). After that, Green Bot remembers your device and connects automatically every time.
 
-- 🖥️ **Screen Mirroring**
-  - Integrated low-latency screen mirroring powered by `scrcpy`.
-  - Control your device with mouse and keyboard.
+- **Plug and play** — Connect via USB and your device appears instantly
+- **Go wireless** — Pair once over WiFi, then connect without cables (Android 11+)
+- **Device dashboard** — See model, Android version, storage, and battery at a glance
+- **Multiple devices** — Connect several devices and switch between them easily
 
-- 📦 **Package Manager**
-  - List all installed applications (User & System).
-  - View detailed app info: Version, storage size, install dates, permissions.
-  - Install APKs from your computer.
-  - Uninstall, Enable, Disable, or Force Stop apps.
-  - Launch apps directly from the desktop.
+→ [First-time setup guide](INSTALL.md#-first-time-setup) (2 minutes)
 
-- ⌨️ **Developer Tools**
-  - **Terminal**: Run raw ADB shell commands.
-  - **Logcat**: View and filter device logs in real-time.
+---
 
-- 🎨 **Modern UI**
-  - Beautiful, responsive interface with Dark/Light mode support.
-  - Native window controls and acrylic effects.
+### 📂 Browse & Transfer Files
 
-## 🛠️ Tech Stack
+A full-featured file explorer for your Android device. No more fumbling with `adb push` and `adb pull` commands.
 
-- **Core**: [Tauri v2](https://v2.tauri.app/) (Rust)
-- **Frontend**: React, TypeScript, Vite
-- **Styling**: TailwindCSS, Shadcn UI
-- **State Management**: Zustand
-- **Icons**: Lucide React
+- **Visual file browser** — Navigate folders with a familiar grid or list view
+- **Drag & drop uploads** — Drop files from your computer directly into the app
+- **Quick preview** — View images and text files without downloading
+- **Batch operations** — Select multiple files to download or delete
+- **Hidden files** — Toggle visibility of system and hidden files
 
-## 🚀 Getting Started
+---
 
-### Prerequisites
+### 🖥️ Mirror Your Screen
 
-- **Node.js** (or Bun/PNPM)
-- **Rust** (cargo)
-- **Linux Packages** (only if building on Linux):
-  ```bash
-  sudo apt-get install libwebkit2gtk-4.1-dev build-essential curl wget file libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
-  ```
+See your phone's screen on your computer with ultra-low latency. Powered by [scrcpy](https://github.com/Genymobile/scrcpy), the gold standard for Android screen mirroring.
 
-### Installation
+- **Real-time mirroring** — Minimal delay, smooth performance
+- **Full control** — Use your mouse and keyboard to interact with your phone
+- **No app required** — Nothing to install on your Android device
+- **High quality** — Configurable resolution and bitrate
 
-1. Clone the repository:
+**Perfect for:**
+- App demos and presentations
+- Testing and debugging on a larger display
+- Controlling your phone while it's charging
+- Recording tutorials and walkthroughs (coming soon)
 
-   ```bash
-   git clone https://github.com/akshayejh/green-bot.git
-   cd green-bot
-   ```
+---
 
-2. Install dependencies:
+### 📦 Manage Apps
 
-   ```bash
-   bun install # or npm install
-   ```
+A complete package manager for installed applications. View, install, uninstall, and control apps without touching your phone.
 
-3. Run in Development Mode:
-   ```bash
-   bun run dev:linux # For Linux Dev (Handles scale issues)
-   # OR
-   bun run tauri dev
-   ```
+- **Browse all apps** — Filter between user apps and system apps
+- **App details** — Version, package name, storage size, install date, permissions
+- **Install APKs** — Drag an APK file or use the file picker
+- **App actions** — Uninstall, disable, enable, force stop, clear data
+- **Quick launch** — Open any app with one click
 
-### Building for Production
+→ [See what's coming to Package Manager](ROADMAP.md)
 
-To create a standalone executable for your OS:
+---
 
-```bash
-bun run tauri build
-```
+### ⌨️ Developer Tools
 
-The output binary will be located in `src-tauri/target/release/bundle/`.
+Built-in tools for Android developers and power users.
 
-## 📦 Binary Dependencies
+**Terminal**
+- Run raw ADB shell commands
+- Full command history
+- Copy/paste support
 
-Green Bot relies on `scrcpy` binaries being present in the resource folder.
+**Logcat Viewer**
+- Real-time device logs
+- Filter by log level (Verbose, Debug, Info, Warning, Error)
+- Search and highlight
+- Export logs for debugging
 
-- **Development**: Ensure `src-tauri/binaries/` contains the correct `scrcpy` folder for your platform.
-- **Runtime**: The app expects `adb` to be resolvable within these bundled resources, allowing it to work on systems without Android Studio installed.
+---
+
+### 🎨 Modern Experience
+
+Designed to feel native on every platform, with attention to detail.
+
+- **Dark & Light themes** — Follows your system preference or set manually
+- **Responsive layout** — Adapts to window size
+- **Keyboard shortcuts** — Fast navigation for power users
+- **Native performance** — Built with Tauri, not Electron (small footprint, low memory)
+
+---
+
+## ❓ FAQ
+
+<details>
+<summary><strong>Do I need to install ADB or Android SDK?</strong></summary>
+
+No! Green Bot bundles everything it needs. Just download and run.
+</details>
+
+<details>
+<summary><strong>How do I connect wirelessly?</strong></summary>
+
+1. Enable **Wireless Debugging** on your Android device (Developer Options)
+2. Use Green Bot's **Connect** feature to pair with your device
+3. That's it — no USB needed!
+</details>
+
+<details>
+<summary><strong>Which platforms are supported?</strong></summary>
+
+Green Bot runs on **macOS**, **Windows**, and **Linux**.
+</details>
+
+<details>
+<summary><strong>Is it free?</strong></summary>
+
+Yes! Green Bot is 100% free and open source under the MIT license. No ads, no tracking, no premium tiers.
+</details>
+
+<details>
+<summary><strong>Why is it so lightweight?</strong></summary>
+
+Green Bot is built with [Tauri](https://tauri.app/), which uses your system's native webview instead of bundling Chromium like Electron apps. This means smaller downloads (~15MB vs ~150MB) and lower memory usage.
+</details>
+
+<details>
+<summary><strong>Is my data safe?</strong></summary>
+
+Green Bot runs entirely on your machine. No data is sent anywhere—all communication happens directly between your computer and Android device over USB or local network.
+</details>
+
+---
+
+## 🗺️ What's Next?
+
+Green Bot is actively developed. Here's what's on the horizon:
+
+- **Extract APKs** — Backup app files from your device
+- **Permission Manager** — Grant/revoke app permissions
+- **Screen Recording** — Record your device screen
+- **Scrcpy Settings** — Customize resolution, bitrate, display options
+
+→ [View full Roadmap](ROADMAP.md)
+
+---
+
+## 🤝 Contributing
+
+Green Bot is open source and welcomes contributions!
+
+- 🐛 **Found a bug?** [Open an issue](https://github.com/akshayejh/green-bot/issues/new)
+- 💡 **Have an idea?** [Start a discussion](https://github.com/akshayejh/green-bot/discussions)
+- 🔧 **Want to code?** [Read the Contributing Guide](CONTRIBUTING.md)
+
+---
+
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Installation Guide](INSTALL.md) | Download, install, and troubleshoot |
+| [Contributing Guide](CONTRIBUTING.md) | Set up dev environment, build from source |
+| [Roadmap](ROADMAP.md) | Planned features and future ideas |
+| [Releases](https://github.com/akshayejh/green-bot/releases) | Download previous versions |
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License — see [LICENSE](LICENSE) for details.
 
 ---
+
+<div align="center">
+  <p>
+    <strong>Green Bot</strong> — Android device management that doesn't get in your way.
+  </p>
+  <p>
+    <a href="https://github.com/akshayejh/green-bot/stargazers">⭐ Star on GitHub</a> · 
+    <a href="https://github.com/akshayejh/green-bot/releases/latest">📥 Download</a> · 
+    <a href="https://github.com/akshayejh/green-bot/issues">🐛 Report Bug</a>
+  </p>
+</div>
