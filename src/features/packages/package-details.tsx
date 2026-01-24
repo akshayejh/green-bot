@@ -144,8 +144,19 @@ export function PackageDetailsPanel({ pkg, details, loading, onClose, onUninstal
 
                                         <div className="pt-2">
                                             <Label className="text-[10px] text-muted-foreground uppercase mb-1.5 block">Package Path</Label>
-                                            <div className="text-[10px] font-mono bg-zinc-950 text-zinc-400 p-2.5 rounded border border-zinc-900 shadow-inner break-all">
+                                            <div className="text-[10px] font-mono bg-zinc-950 text-zinc-400 p-2.5 rounded border border-zinc-900 shadow-inner break-all relative group pr-8">
                                                 {details.path}
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-5 w-5 absolute right-1.5 top-1.5 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-zinc-800"
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(details.path);
+                                                        toast.success("Package path copied to clipboard");
+                                                    }}
+                                                >
+                                                    <Copy className="w-3 h-3 text-zinc-500" />
+                                                </Button>
                                             </div>
                                         </div>
                                     </div>

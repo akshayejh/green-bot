@@ -1,14 +1,142 @@
 # Roadmap
 
-## 🚀 Upcoming Features
+This document outlines planned features and improvements for Green Bot. Features are organized by priority and complexity.
+
+> **Note**: This roadmap is a living document and subject to change. Priorities may shift based on user feedback, technical constraints, and new ideas. Items listed here are not guaranteed to be implemented in any specific order or timeframe.
+
+---
+
+## 🎯 High Priority
 
 ### Package Manager Enhancements
 
-- **Extract APK**: Ability to pull/backup the APK file from a connected device to the computer.
-- **Grant/Revoke Permissions**: Interface to manage individual app permissions interactively.
-- **View Running Status**: Visual indicator showing if an app is currently running.
-- **Data & Cache Size**: Display detailed storage breakdown (App size, User data, Cache size).
+- **Extract APK**: Pull/backup APK files from device to computer
+- **Grant/Revoke Permissions**: Manage individual app permissions interactively
+- **Running Status Indicator**: Show if an app is currently running
+- **Storage Breakdown**: Display app size, user data, and cache size separately
+- **Open in Settings**: Quick button to open app's settings page on device
+- **Batch Operations**: Select multiple apps for bulk uninstall/disable/enable
 
-## 🔮 Future Ideas
+### File Manager Enhancements
 
-- _Pending additions..._
+- **Create New Folder**: Right-click or toolbar option to create directories
+- **Rename Files/Folders**: In-place rename with F2 or context menu
+- **Move/Cut Operations**: Cut-paste workflow for moving files
+- **Multi-Select**: Shift/Ctrl+click for batch download/delete operations
+- **Search Files**: Search within current directory or recursively
+- **Bookmarked Paths**: Save frequently accessed directories
+
+### Device Information Dashboard
+
+- **Battery Status**: Level, charging state, health, temperature
+- **Storage Overview**: Visual breakdown of used/free space by category
+- **Memory Usage**: RAM usage with app breakdown
+- **Network Info**: IP address, WiFi SSID, connection state
+- **Quick Device Specs**: Model, Android version, build number, serial
+
+---
+
+## 🚀 Medium Priority
+
+### Screenshots & Recording
+
+- **Take Screenshot**: Capture device screen with one click
+- **Screen Recording**: Start/stop video recording of device screen
+- **Screenshot History**: Gallery of recent captures with quick actions
+- **Annotation Tools**: Basic markup before saving/sharing
+
+### Quick Actions & Controls
+
+- **Reboot Options**: Normal reboot, bootloader, recovery, fastboot
+- **Input Controls**: Send text, key events, simulate taps
+- **Toggle Settings**: WiFi, Bluetooth, mobile data, airplane mode
+- **Volume Control**: Adjust media/ring/notification volumes
+- **Brightness Control**: Adjust screen brightness remotely
+
+### Developer Tools
+
+- **Layout Bounds**: Toggle layout bounds overlay on device
+- **GPU Overdraw**: Visualize overdraw regions
+- **Pointer Location**: Show touch coordinates overlay
+- **Animation Scales**: Adjust animator/window/transition duration
+- **Don't Keep Activities**: Toggle for testing activity lifecycle
+- **Show Taps**: Visual feedback for touches
+
+### Log Viewer Improvements
+
+- **Advanced Filters**: Filter by tag, PID, log level, keyword
+- **Search & Highlight**: Find and highlight terms in logs
+- **Export Logs**: Save filtered logs to file
+- **Auto-scroll Lock**: Pause auto-scroll while reading
+- **Color-coded Levels**: Visual distinction for V/D/I/W/E/F
+
+---
+
+## 💡 Future Ideas
+
+### Backup & Restore
+
+- **App Backup**: Backup APK + data for selected apps
+- **Full Device Backup**: Complete ADB backup with encryption
+- **Restore Wizard**: Guided restore process from backup files
+- **Backup Profiles**: Save backup configurations for quick access
+- **Cloud Integration**: Optional backup to cloud storage
+
+### Automation & Scripting
+
+- **Command Macros**: Save and replay command sequences
+- **Custom Quick Commands**: User-defined terminal shortcuts
+- **Scheduled Tasks**: Run commands on a timer or schedule
+- **Event Triggers**: Execute actions on device connect/disconnect
+
+### Multi-Device Features
+
+- **Parallel Execution**: Run same command on multiple devices
+- **Device Groups**: Organize devices into named groups
+- **File Sync**: Sync folders between devices or to computer
+- **Device Comparison**: Side-by-side spec comparison
+
+### Advanced Package Features
+
+- **Activity Launcher**: List and launch specific activities
+- **Intent Sender**: Craft and send custom intents
+- **Service Manager**: View and control app services
+- **Content Provider Browser**: Explore app data via content providers
+- **Shared Preferences Editor**: View/edit app preferences (root)
+
+### Quality of Life
+
+- **Global Keyboard Shortcuts**: Navigate app without mouse
+- **Command Palette**: Quick action search (Cmd/Ctrl+K)
+- **Operation History**: View past operations with undo support
+- **Favorites System**: Star frequently used apps/files/commands
+- **Drag & Drop Everywhere**: Drop files anywhere to upload
+- **Notifications**: System notifications for long-running tasks
+- **Themes**: Additional color themes beyond light/dark
+
+### Security Tools
+
+- **Permission Audit**: Security analysis of installed apps
+- **Certificate Viewer**: View app signing certificates
+- **SELinux Status**: Display and explain SELinux state
+- **USB Debugging Status**: Show connected debugger info
+
+---
+
+## ✅ Recently Completed
+
+- [x] File delete with confirmation dialog
+- [x] Curated app name database (300+ apps)
+- [x] Copy buttons on package details
+- [x] Terminal command history with arrow navigation
+- [x] Linux window frame fix
+- [x] Device customization persistence
+- [x] External links working on Linux
+
+---
+
+## 🤝 Contributing
+
+Have a feature idea? Open an issue on GitHub with the `enhancement` label!
+
+Contributions are welcome for any roadmap item. Check CONTRIBUTING.md for guidelines.

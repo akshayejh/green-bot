@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { useFileStore } from "@/store/file-store";
 import { FileEntry } from "@/types";
-import { Copy, File, Download } from "lucide-react";
+import { Copy, File, Download, Trash2 } from "lucide-react";
 import { invoke } from "@tauri-apps/api/core";
 import { save } from "@tauri-apps/plugin-dialog";
 import { useProcessStore } from "@/store/process-store";
 import { useDeviceStore } from "@/store/device-store";
 import { toast } from "sonner";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface FileContextMenuProps {
     x: number;
@@ -15,9 +17,12 @@ interface FileContextMenuProps {
 }
 
 export function FileContextMenu({ x, y, file, onClose }: FileContextMenuProps) {
-    const { path } = useFileStore();
+    const { path, loadFiles } = useFileStore();
     const { selectedSerial } = useDeviceStore();
     const { addTask, updateTask } = useProcessStore();
+
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const handleDownload = async () => {
         onClose();
@@ -63,33 +68,82 @@ export function FileContextMenu({ x, y, file, onClose }: FileContextMenuProps) {
         }
     };
 
+    const handleDelete = async () => {
+        if (!selectedSerial) return;
+
+        setIsDeleting(true);
+        const remotePath = path.endsWith('/') ? path + file.name : path + '/' + file.name;
+
+        try {
+            await invoke('delete_file', {
+                device: selectedSerial,
+                path: remotePath
+            });
+
+            toast.success(`Deleted ${file.name}`);
+            setShowDeleteDialog(false);
+            onClose();
+            // Refresh the file list
+            loadFiles(selectedSerial);
+        } catch (error) {
+            console.error('Delete failed:', error);
+            toast.error(`Failed to delete ${file.name}: ${error instanceof Error ? error.message : String(error)}`);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
-        <div
-            className="fixed z-50 min-w-[160px] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-80 zoom-in-95"
-            style={{
-                top: Math.min(y, window.innerHeight - 200),
-                left: Math.min(x, window.innerWidth - 200)
-            }}
-            onClick={(e) => e.stopPropagation()}
-        >
-            <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-b mb-1 truncate max-w-[200px]">
-                {file.name}
+        <>
+            <div
+                className="fixed z-50 min-w-[160px] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-80 zoom-in-95"
+                style={{
+                    top: Math.min(y, window.innerHeight - 200),
+                    left: Math.min(x, window.innerWidth - 200)
+                }}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-b mb-1 truncate max-w-[200px]">
+                    {file.name}
+                </div>
+                <ContextMenuItem icon={Download} label="Download" onClick={handleDownload} />
+                <ContextMenuItem icon={Copy} label="Copy Name" onClick={() => {
+                    navigator.clipboard.writeText(file.name);
+                    onClose();
+                }} />
+                <ContextMenuItem icon={File} label="Copy Path" onClick={() => {
+                    navigator.clipboard.writeText(path + file.name);
+                    onClose();
+                }} />
+                <div className="my-1 h-px bg-muted" />
+                <ContextMenuItem
+                    icon={Trash2}
+                    label="Delete"
+                    className="text-red-500 hover:text-red-500 hover:bg-red-500/10"
+                    onClick={() => setShowDeleteDialog(true)}
+                />
             </div>
-            <ContextMenuItem icon={Download} label="Download" onClick={handleDownload} />
-            <ContextMenuItem icon={Copy} label="Copy Name" onClick={() => {
-                navigator.clipboard.writeText(file.name);
-                onClose();
-            }} />
-            <ContextMenuItem icon={File} label="Copy Path" onClick={() => {
-                navigator.clipboard.writeText(path + file.name);
-                onClose();
-            }} />
-            {/* <div className="my-1 h-px bg-muted" />
-            <ContextMenuItem icon={Scissors} label="Cut" disabled />
-            <ContextMenuItem icon={ClipboardPaste} label="Paste" disabled />
-            <div className="my-1 h-px bg-muted" />
-            <ContextMenuItem icon={Trash2} label="Delete" className="text-red-500 focus:text-red-500" disabled /> */}
-        </div>
+
+            <ConfirmDialog
+                open={showDeleteDialog}
+                onOpenChange={(open) => {
+                    setShowDeleteDialog(open);
+                    if (!open) onClose();
+                }}
+                title={`Delete ${file.is_dir ? 'Folder' : 'File'}`}
+                description={
+                    <>
+                        Are you sure you want to delete <span className="font-semibold">{file.name}</span>?
+                        {file.is_dir && <span className="block mt-1 text-destructive">This will delete all contents inside the folder.</span>}
+                        <span className="block mt-1 text-muted-foreground">This action cannot be undone.</span>
+                    </>
+                }
+                confirmText="Delete"
+                variant="destructive"
+                onConfirm={handleDelete}
+                isLoading={isDeleting}
+            />
+        </>
     );
 }
 

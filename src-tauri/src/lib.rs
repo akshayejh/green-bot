@@ -7,7 +7,7 @@ use commands::{adb, files, logs, mirror, packages, terminal};
 pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
-            #[cfg(target_os = "windows")]
+            #[cfg(any(target_os = "windows", target_os = "linux"))]
             {
                 use tauri::Manager;
                 if let Some(window) = app.get_webview_window("main") {

@@ -14,6 +14,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { check } from '@tauri-apps/plugin-updater';
 import { relaunch } from '@tauri-apps/plugin-process';
+import { openUrl } from '@tauri-apps/plugin-opener';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -223,11 +224,13 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
                                                     </p>
                                                 </div>
                                                 <div className="flex gap-3 mt-2">
-                                                    <Button variant="outline" className="gap-2" asChild>
-                                                        <a href="https://github.com/akshayejh/green-bot" target="_blank" rel="noreferrer">
-                                                            <Github className="h-4 w-4" />
-                                                            GitHub
-                                                        </a>
+                                                    <Button
+                                                        variant="outline"
+                                                        className="gap-2"
+                                                        onClick={() => openUrl("https://github.com/akshayejh/green-bot")}
+                                                    >
+                                                        <Github className="h-4 w-4" />
+                                                        GitHub
                                                     </Button>
                                                 </div>
                                             </CardContent>

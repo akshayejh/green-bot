@@ -20,6 +20,10 @@
     <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platform" />
     <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
   </p>
+
+  <br />
+
+  <img src="public/app-preview.png" alt="Green Bot Preview" width="900" />
 </div>
 
 ---
@@ -30,26 +34,30 @@ Choose your platform to download the latest version:
 
 ### Download
 
-| Platform | Download | Notes |
-|----------|----------|-------|
-| **macOS** | [Download .dmg](https://github.com/akshayejh/green-bot/releases/latest) | Intel & Apple Silicon |
-| **Windows** | [Download .msi](https://github.com/akshayejh/green-bot/releases/latest) | Windows 10/11 |
-| **Linux** | [Download .AppImage](https://github.com/akshayejh/green-bot/releases/latest) | Also available as .deb |
+| Platform    | Download                                                                     | Notes                  |
+| ----------- | ---------------------------------------------------------------------------- | ---------------------- |
+| **macOS**   | [Download .dmg](https://github.com/akshayejh/green-bot/releases/latest)      | Intel & Apple Silicon  |
+| **Windows** | [Download .msi](https://github.com/akshayejh/green-bot/releases/latest)      | Windows 10/11          |
+| **Linux**   | [Download .AppImage](https://github.com/akshayejh/green-bot/releases/latest) | Also available as .deb |
 
 > **🍎 macOS Users:** If you see "App is damaged and can't be opened", run this in Terminal:
+>
 > ```bash
 > xattr -cr /Applications/Green\ Bot.app
 > ```
+>
 > This is normal for open-source apps not distributed through the App Store. [Learn why →](INSTALL.md#macos-app-is-damaged-and-cant-be-opened)
 
 ### One-Line Install (Terminal)
 
 **Linux & macOS:**
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.sh | sh
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 iwr -useb https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.ps1 | iex
 ```
@@ -97,6 +105,7 @@ See your phone's screen on your computer with ultra-low latency. Powered by [scr
 - **High quality** — Configurable resolution and bitrate
 
 **Perfect for:**
+
 - App demos and presentations
 - Testing and debugging on a larger display
 - Controlling your phone while it's charging
@@ -123,11 +132,13 @@ A complete package manager for installed applications. View, install, uninstall,
 Built-in tools for Android developers and power users.
 
 **Terminal**
+
 - Run raw ADB shell commands
 - Full command history
 - Copy/paste support
 
 **Logcat Viewer**
+
 - Real-time device logs
 - Filter by log level (Verbose, Debug, Info, Warning, Error)
 - Search and highlight
@@ -152,6 +163,7 @@ Designed to feel native on every platform, with attention to detail.
 <summary><strong>Do I need to install ADB or Android SDK?</strong></summary>
 
 No! Green Bot bundles everything it needs. Just download and run.
+
 </details>
 
 <details>
@@ -166,24 +178,28 @@ No! Green Bot bundles everything it needs. Just download and run.
 <summary><strong>Which platforms are supported?</strong></summary>
 
 Green Bot runs on **macOS**, **Windows**, and **Linux**.
+
 </details>
 
 <details>
 <summary><strong>Is it free?</strong></summary>
 
 Yes! Green Bot is 100% free and open source under the MIT license. No ads, no tracking, no premium tiers.
+
 </details>
 
 <details>
 <summary><strong>Why is it so lightweight?</strong></summary>
 
 Green Bot is built with [Tauri](https://tauri.app/), which uses your system's native webview instead of bundling Chromium like Electron apps. This means smaller downloads (~15MB vs ~150MB) and lower memory usage.
+
 </details>
 
 <details>
 <summary><strong>Is my data safe?</strong></summary>
 
 Green Bot runs entirely on your machine. No data is sent anywhere—all communication happens directly between your computer and Android device over USB or local network.
+
 </details>
 
 ---
@@ -213,12 +229,12 @@ Green Bot is open source and welcomes contributions!
 
 ## 📚 Documentation
 
-| Document | Description |
-|----------|-------------|
-| [Installation Guide](INSTALL.md) | Download, install, and troubleshoot |
-| [Contributing Guide](CONTRIBUTING.md) | Set up dev environment, build from source |
-| [Roadmap](ROADMAP.md) | Planned features and future ideas |
-| [Releases](https://github.com/akshayejh/green-bot/releases) | Download previous versions |
+| Document                                                    | Description                               |
+| ----------------------------------------------------------- | ----------------------------------------- |
+| [Installation Guide](INSTALL.md)                            | Download, install, and troubleshoot       |
+| [Contributing Guide](CONTRIBUTING.md)                       | Set up dev environment, build from source |
+| [Roadmap](ROADMAP.md)                                       | Planned features and future ideas         |
+| [Releases](https://github.com/akshayejh/green-bot/releases) | Download previous versions                |
 
 ---
 

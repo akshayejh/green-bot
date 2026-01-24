@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
@@ -9,18 +9,32 @@ import { TerminalWindow, LogLine } from "./terminal-window";
 import { TerminalInput, TerminalInputHandle } from "./terminal-input";
 import { TerminalCommands } from "./terminal-commands";
 
+const MAX_HISTORY = 100;
+
 export function TerminalView() {
     const selectedSerial = useDeviceStore((state) => state.selectedSerial);
     const [input, setInput] = useState("");
     const [logs, setLogs] = useState<LogLine[]>([]);
     const [executing, setExecuting] = useState(false);
+    const [history, setHistory] = useState<string[]>([]);
+    const [historyIndex, setHistoryIndex] = useState(-1);
+    const [savedInput, setSavedInput] = useState(""); // Save current input when navigating history
     const inputRef = useRef<TerminalInputHandle>(null);
 
     const handleRun = async () => {
         if (!input.trim() || !selectedSerial) return;
 
-        const cmd = input;
+        const cmd = input.trim();
         setInput("");
+
+        // Add to history (avoid duplicates at the top)
+        setHistory(prev => {
+            const filtered = prev.filter(h => h !== cmd);
+            return [cmd, ...filtered].slice(0, MAX_HISTORY);
+        });
+        setHistoryIndex(-1);
+        setSavedInput("");
+
         setLogs(prev => [...prev, { type: 'in', text: `$ adb -s ${selectedSerial} shell ${cmd}` }]);
         setExecuting(true);
 
@@ -34,6 +48,42 @@ export function TerminalView() {
             setLogs(prev => [...prev, { type: 'err', text: String(err) }]);
         } finally {
             setExecuting(false);
+        }
+    };
+
+    const handleHistoryNavigate = useCallback((direction: 'up' | 'down') => {
+        if (history.length === 0) return;
+
+        if (direction === 'up') {
+            if (historyIndex === -1) {
+                // Save current input before navigating
+                setSavedInput(input);
+                setHistoryIndex(0);
+                setInput(history[0]);
+            } else if (historyIndex < history.length - 1) {
+                const newIndex = historyIndex + 1;
+                setHistoryIndex(newIndex);
+                setInput(history[newIndex]);
+            }
+        } else {
+            if (historyIndex > 0) {
+                const newIndex = historyIndex - 1;
+                setHistoryIndex(newIndex);
+                setInput(history[newIndex]);
+            } else if (historyIndex === 0) {
+                // Return to saved input
+                setHistoryIndex(-1);
+                setInput(savedInput);
+            }
+        }
+    }, [history, historyIndex, input, savedInput]);
+
+    const handleInputChange = (value: string) => {
+        setInput(value);
+        // Reset history navigation when user types
+        if (historyIndex !== -1) {
+            setHistoryIndex(-1);
+            setSavedInput("");
         }
     };
 
@@ -73,10 +123,13 @@ export function TerminalView() {
                 <TerminalInput
                     ref={inputRef}
                     value={input}
-                    onChange={setInput}
+                    onChange={handleInputChange}
                     onRun={handleRun}
                     disabled={!selectedSerial}
                     loading={executing}
+                    history={history}
+                    historyIndex={historyIndex}
+                    onHistoryNavigate={handleHistoryNavigate}
                 />
             </div>
 
