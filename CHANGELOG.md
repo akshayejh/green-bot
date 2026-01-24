@@ -11,6 +11,14 @@ No unreleased changes.
 
 ---
 
+## [1.1.3] - 2026-01-24
+
+### Fixed
+- Enabled `createUpdaterArtifacts` in bundle config to generate signed update files
+- Auto-updater now works correctly
+
+---
+
 ## [1.1.2] - 2026-01-24
 
 ### Fixed

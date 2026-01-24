@@ -64,6 +64,7 @@ jobs:
         with:
           tagName: v__VERSION__ # the action automatically replaces this with the app version
           releaseName: "Green Bot v__VERSION__"
+          updaterJsonPreferNsis: true
           releaseBody: |
             ## 📥 Download
 
