@@ -11,6 +11,13 @@ No unreleased changes.
 
 ---
 
+## [1.1.2] - 2026-01-24
+
+### Fixed
+- Fixed updater public key configuration (was incorrectly set to private key)
+
+---
+
 ## [1.1.1] - 2026-01-24
 
 ### Added
