@@ -26,7 +26,6 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import { useDeviceStore } from "@/store/device-store"
-import { SettingsDialog } from "@/features/settings/settings-dialog"
 
 const data = {
   main: [
@@ -78,7 +77,6 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 export function AppSidebar({ currentView, onViewChange, ...props }: AppSidebarProps) {
   const devices = useDeviceStore((state) => state.devices);
   const selectedSerial = useDeviceStore((state) => state.selectedSerial);
-  const [settingsOpen, setSettingsOpen] = React.useState(false);
 
   // Check if selected device is online
   const selectedDevice = devices.find(d => d.serial === selectedSerial);
@@ -86,11 +84,7 @@ export function AppSidebar({ currentView, onViewChange, ...props }: AppSidebarPr
   const toolsDisabled = !selectedSerial || !isDeviceOnline;
 
   const handleViewChange = (id: string) => {
-    if (id === 'settings') {
-      setSettingsOpen(true);
-    } else {
-      onViewChange(id);
-    }
+    onViewChange(id);
   };
 
   const handleRestartAdb = async () => {
@@ -127,7 +121,6 @@ export function AppSidebar({ currentView, onViewChange, ...props }: AppSidebarPr
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
-      <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
     </Sidebar>
   )
 }

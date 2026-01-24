@@ -6,8 +6,12 @@ import { TerminalView } from "@/features/terminal/terminal-view"
 import { LogViewer } from "@/features/adb-logs/log-viewer"
 import { ScreenMirror } from "@/features/mirror/screen-mirror"
 import { PackageManager } from "@/features/packages/package-manager"
+import { SettingsPage } from "@/features/settings/settings-page"
 import { TitleBar } from "@/components/title-bar"
 import { useDeviceStore } from "@/store/device-store"
+import { useSettingsStore } from "@/store/settings-store"
+import { check } from "@tauri-apps/plugin-updater"
+import { toast } from "sonner"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -26,13 +30,37 @@ import { Toaster } from "sonner"
 export default function App() {
   const [currentView, setCurrentView] = useState("devices")
   const refreshDevices = useDeviceStore((state) => state.refreshDevices);
+  const checkUpdatesOnLaunch = useSettingsStore((state) => state.checkUpdatesOnLaunch);
 
   useEffect(() => {
     refreshDevices();
   }, [refreshDevices]);
 
+  // Check for updates on launch (if enabled)
+  useEffect(() => {
+    if (!checkUpdatesOnLaunch || import.meta.env.DEV) return;
+
+    const checkForUpdates = async () => {
+      try {
+        const update = await check();
+        if (update?.available) {
+          toast.info(`Update available: v${update.version}`, {
+            description: "Go to Settings → Updates to install.",
+            duration: 8000,
+          });
+        }
+      } catch {
+        // Silently fail on startup check
+      }
+    };
+
+    // Delay check to not block startup
+    const timeout = setTimeout(checkForUpdates, 3000);
+    return () => clearTimeout(timeout);
+  }, [checkUpdatesOnLaunch]);
+
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden rounded-xl bg-background border border-sidebar-border shadow-lg">
+    <div className="h-screen w-screen flex flex-col overflow-hidden bg-background">
       <TitleBar />
       <SidebarProvider className="flex-1 overflow-hidden relative min-h-0">
         <AppSidebar
@@ -85,6 +113,10 @@ export default function App() {
 
             <div className={cn("absolute inset-0 flex flex-col bg-background", currentView === "logs" ? "z-10" : "z-0 hidden")}>
               <LogViewer />
+            </div>
+
+            <div className={cn("absolute inset-0 flex flex-col bg-background", currentView === "settings" ? "z-10" : "z-0 hidden")}>
+              <SettingsPage />
             </div>
 
           </div>

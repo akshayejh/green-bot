@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFileStore } from "@/store/file-store";
+import { useSettingsStore } from "@/store/settings-store";
 import { FileEntry } from "@/types";
 import { Copy, File, Download, Trash2 } from "lucide-react";
 import { invoke } from "@tauri-apps/api/core";
@@ -20,6 +21,7 @@ export function FileContextMenu({ x, y, file, onClose }: FileContextMenuProps) {
     const { path, loadFiles } = useFileStore();
     const { selectedSerial } = useDeviceStore();
     const { addTask, updateTask } = useProcessStore();
+    const confirmBeforeDelete = useSettingsStore((state) => state.confirmBeforeDelete);
 
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -68,7 +70,7 @@ export function FileContextMenu({ x, y, file, onClose }: FileContextMenuProps) {
         }
     };
 
-    const handleDelete = async () => {
+    const performDelete = async () => {
         if (!selectedSerial) return;
 
         setIsDeleting(true);
@@ -90,6 +92,14 @@ export function FileContextMenu({ x, y, file, onClose }: FileContextMenuProps) {
             toast.error(`Failed to delete ${file.name}: ${error instanceof Error ? error.message : String(error)}`);
         } finally {
             setIsDeleting(false);
+        }
+    };
+
+    const handleDelete = () => {
+        if (confirmBeforeDelete) {
+            setShowDeleteDialog(true);
+        } else {
+            performDelete();
         }
     };
 
@@ -120,7 +130,7 @@ export function FileContextMenu({ x, y, file, onClose }: FileContextMenuProps) {
                     icon={Trash2}
                     label="Delete"
                     className="text-red-500 hover:text-red-500 hover:bg-red-500/10"
-                    onClick={() => setShowDeleteDialog(true)}
+                    onClick={handleDelete}
                 />
             </div>
 
@@ -140,7 +150,7 @@ export function FileContextMenu({ x, y, file, onClose }: FileContextMenuProps) {
                 }
                 confirmText="Delete"
                 variant="destructive"
-                onConfirm={handleDelete}
+                onConfirm={performDelete}
                 isLoading={isDeleting}
             />
         </>

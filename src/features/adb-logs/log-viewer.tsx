@@ -2,12 +2,14 @@ import { useState, useEffect, useMemo } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { toast } from "sonner";
 import { useDeviceStore } from "@/store/device-store";
+import { useSettingsStore } from "@/store/settings-store";
 import { LogToolbar } from "./log-toolbar";
 import { LogList } from "./log-list";
 import { LogLevel } from "./types";
 
 export function LogViewer() {
     const selectedSerial = useDeviceStore((state) => state.selectedSerial);
+    const defaultLogLevel = useSettingsStore((state) => state.defaultLogLevel);
     const [logs, setLogs] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [isLive, setIsLive] = useState(false);
@@ -15,7 +17,7 @@ export function LogViewer() {
 
     // Filters
     const [filterText, setFilterText] = useState("");
-    const [minLevel, setMinLevel] = useState<LogLevel>('V');
+    const [minLevel, setMinLevel] = useState<LogLevel>(defaultLogLevel);
 
     const fetchLogs = async (silent = false) => {
         if (!selectedSerial) return;

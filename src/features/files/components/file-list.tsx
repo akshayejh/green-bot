@@ -1,6 +1,7 @@
 import { useFileStore } from "@/store/file-store";
+import { useSettingsStore } from "@/store/settings-store";
 import { FileEntry } from "@/types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FileContextMenu } from "./file-context-menu";
 import { FileIcon } from "./file-icon";
 
@@ -35,7 +36,17 @@ function formatSize(size: number): string {
 
 export function FileList({ onPreview }: FileListProps) {
     const { files, isLoading, path, navigateTo } = useFileStore();
+    const showHiddenFiles = useSettingsStore((state) => state.showHiddenFiles);
     const [contextMenu, setContextMenu] = useState<{ x: number; y: number; file: FileEntry } | null>(null);
+
+    // Filter files based on settings
+    const visibleFiles = useMemo(() => {
+        return files.filter(f => {
+            if (f.name === '..') return false;
+            if (!showHiddenFiles && f.name.startsWith('.')) return false;
+            return true;
+        });
+    }, [files, showHiddenFiles]);
 
     // Close menu on click elsewhere
     useEffect(() => {
@@ -72,7 +83,7 @@ export function FileList({ onPreview }: FileListProps) {
             <div className="overflow-y-auto flex-1 p-1">
                 {isLoading && files.length === 0 ? (
                     <div className="p-4 text-center text-sm text-muted-foreground">Loading...</div>
-                ) : files.filter(f => f.name !== '..').map((file) => (
+                ) : visibleFiles.map((file) => (
                     <div
                         key={file.name}
                         onClick={() => handleEntryClick(file)}
@@ -91,7 +102,7 @@ export function FileList({ onPreview }: FileListProps) {
                         </div>
                     </div>
                 ))}
-                {!isLoading && files.length === 0 && (
+                {!isLoading && visibleFiles.length === 0 && (
                     <div className="p-8 text-center text-sm text-muted-foreground">Empty directory</div>
                 )}
             </div>

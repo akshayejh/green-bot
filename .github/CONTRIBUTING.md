@@ -131,7 +131,11 @@ Found a bug? Please [open an issue](https://github.com/akshayejh/green-bot/issue
 
 ## 💡 Feature Requests
 
-Have an idea? Check the [Roadmap](ROADMAP.md) first, then [open a discussion](https://github.com/akshayejh/green-bot/discussions) to propose your feature.
+Have an idea? Check the [Roadmap](../docs/ROADMAP.md) first, then [open a discussion](https://github.com/akshayejh/green-bot/discussions) to propose your feature.
+
+## 🤝 Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 ---
 

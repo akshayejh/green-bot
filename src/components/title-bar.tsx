@@ -37,14 +37,14 @@ export function TitleBar() {
     <div data-tauri-drag-region className={`flex flex-row w-full bg-sidebar border-b select-none shrink-0 overflow-hidden items-center justify-between transition-[height] ${isMac ? 'h-8' : 'h-10'}`}>
       {/* Left: App name (Windows/Linux) or Empty (Mac) */}
       <div className={`flex items-center gap-2 px-3 text-sidebar-foreground/50 justify-self-start pointer-events-none ${isMac ? 'hidden' : ''}`}>
-        <span className="text-xs font-medium tracking-wide">Green Bot</span>
+        <span className="text-xs tracking-wide">Green Bot</span>
       </div>
 
       {/* Right: Window Controls (Windows/Linux) or App name (Mac) */}
       <div data-tauri-drag-region className="flex flex-1 items-center justify-end h-full pr-3">
         {isMac ? (
           <div className="flex items-center gap-1.5 text-sidebar-foreground/40 pointer-events-none">
-            <span className="text-xs font-medium tracking-wide">Green Bot</span>
+            <span className="text-xs tracking-wide">Green Bot</span>
           </div>
         ) : (
           <>

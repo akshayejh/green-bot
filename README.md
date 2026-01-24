@@ -213,7 +213,7 @@ Green Bot is actively developed. Here's what's on the horizon:
 - **Screen Recording** — Record your device screen
 - **Scrcpy Settings** — Customize resolution, bitrate, display options
 
-→ [View full Roadmap](ROADMAP.md)
+→ [View full Roadmap](docs/ROADMAP.md)
 
 ---
 
@@ -223,7 +223,7 @@ Green Bot is open source and welcomes contributions!
 
 - 🐛 **Found a bug?** [Open an issue](https://github.com/akshayejh/green-bot/issues/new)
 - 💡 **Have an idea?** [Start a discussion](https://github.com/akshayejh/green-bot/discussions)
-- 🔧 **Want to code?** [Read the Contributing Guide](CONTRIBUTING.md)
+- 🔧 **Want to code?** [Read the Contributing Guide](.github/CONTRIBUTING.md)
 
 ---
 
@@ -231,9 +231,9 @@ Green Bot is open source and welcomes contributions!
 
 | Document                                                    | Description                               |
 | ----------------------------------------------------------- | ----------------------------------------- |
-| [Installation Guide](INSTALL.md)                            | Download, install, and troubleshoot       |
-| [Contributing Guide](CONTRIBUTING.md)                       | Set up dev environment, build from source |
-| [Roadmap](ROADMAP.md)                                       | Planned features and future ideas         |
+| [Installation Guide](docs/INSTALL.md)                       | Download, install, and troubleshoot       |
+| [Contributing Guide](.github/CONTRIBUTING.md)               | Set up dev environment, build from source |
+| [Roadmap](docs/ROADMAP.md)                                  | Planned features and future ideas         |
 | [Releases](https://github.com/akshayejh/green-bot/releases) | Download previous versions                |
 
 ---

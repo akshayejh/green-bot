@@ -7,7 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-No unreleased changes.
+### Added
+
+- Download and install progress indicator for updates
+- Settings page (replaced dialog with full-page view)
+- Settings UI Kit with reusable components for building settings interfaces
+- New settings options: show hidden files, confirm before delete, default log level, command history limit
+- Check for updates on app launch (configurable in settings)
+- Add device dialog redesigned with illustrated help dialogs and step-by-step guidance
+- Nested dialog component for stacked dialogs with proper escape key handling
+- GitHub community files (issue templates, PR template, code of conduct, contributing guide, security policy)
+- Dependabot configuration for automated dependency updates
+- MIT License file
+
+### Changed
+
+- Documentation reorganized into `docs/` folder (INSTALL.md, RELEASING.md, ROADMAP.md)
+- Contributing guide moved to `.github/CONTRIBUTING.md`
+- Package.json now includes description, license, author, and repository metadata
+- Title bar text styling simplified
 
 ---
 

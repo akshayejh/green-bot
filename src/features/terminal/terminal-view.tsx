@@ -3,16 +3,16 @@ import { invoke } from "@tauri-apps/api/core";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useDeviceStore } from "@/store/device-store";
+import { useSettingsStore } from "@/store/settings-store";
 import { Toolbar, ToolbarLeft, ToolbarRight } from "@/components/toolbar";
 import { TerminalStatus } from "./terminal-status";
 import { TerminalWindow, LogLine } from "./terminal-window";
 import { TerminalInput, TerminalInputHandle } from "./terminal-input";
 import { TerminalCommands } from "./terminal-commands";
 
-const MAX_HISTORY = 100;
-
 export function TerminalView() {
     const selectedSerial = useDeviceStore((state) => state.selectedSerial);
+    const maxCommandHistory = useSettingsStore((state) => state.maxCommandHistory);
     const [input, setInput] = useState("");
     const [logs, setLogs] = useState<LogLine[]>([]);
     const [executing, setExecuting] = useState(false);
@@ -30,7 +30,7 @@ export function TerminalView() {
         // Add to history (avoid duplicates at the top)
         setHistory(prev => {
             const filtered = prev.filter(h => h !== cmd);
-            return [cmd, ...filtered].slice(0, MAX_HISTORY);
+            return [cmd, ...filtered].slice(0, maxCommandHistory);
         });
         setHistoryIndex(-1);
         setSavedInput("");

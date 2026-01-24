@@ -2,6 +2,13 @@
   "name": "green-bot",
   "private": true,
   "version": "1.2.0",
+  "description": "Manage your Android devices without the bloat.",
+  "license": "MIT",
+  "author": "Akshayejh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akshayejh/green-bot.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
