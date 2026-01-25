@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Github, Info, ExternalLink, Scale, Bug } from "lucide-react";
 import { openUrl } from '@tauri-apps/plugin-opener';
 import { SettingsHeader, SettingsCard, SettingsLinkItem, SettingsValueItem } from "@/components/ui/settings";
