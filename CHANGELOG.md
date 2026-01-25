@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.2.1] - 2026-01-25
+
+### Added
+
+- README badges for build status, downloads, license, and stars
+
+### Changed
+
+- Documentation reorganized into `docs/` folder (INSTALL.md, RELEASING.md, ROADMAP.md)
+- Contributing guide moved to `.github/CONTRIBUTING.md`
+- Package.json now includes description, license, author, and repository metadata
+- Title bar text styling simplified
+
 ### Added
 
 - Download and install progress indicator for updates
@@ -19,13 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub community files (issue templates, PR template, code of conduct, contributing guide, security policy)
 - Dependabot configuration for automated dependency updates
 - MIT License file
-
-### Changed
-
-- Documentation reorganized into `docs/` folder (INSTALL.md, RELEASING.md, ROADMAP.md)
-- Contributing guide moved to `.github/CONTRIBUTING.md`
-- Package.json now includes description, license, author, and repository metadata
-- Title bar text styling simplified
 
 ---
 
@@ -135,7 +143,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dark/light theme support
 - Cross-platform support (macOS, Windows, Linux)
 
-[Unreleased]: https://github.com/akshayejh/green-bot/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/akshayejh/green-bot/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/akshayejh/green-bot/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/akshayejh/green-bot/compare/v1.1.3...v1.2.0
 [1.1.3]: https://github.com/akshayejh/green-bot/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/akshayejh/green-bot/compare/v1.1.1...v1.1.2

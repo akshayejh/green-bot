@@ -11,6 +11,21 @@
   </p>
 
   <p>
+    <a href="https://github.com/akshayejh/green-bot/actions/workflows/release.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/akshayejh/green-bot/release.yml?style=flat-square&label=build" alt="Build Status" />
+    </a>
+    <a href="https://github.com/akshayejh/green-bot/releases">
+      <img src="https://img.shields.io/github/downloads/akshayejh/green-bot/total?style=flat-square&color=00C853" alt="Downloads" />
+    </a>
+    <a href="https://github.com/akshayejh/green-bot/blob/main/LICENSE">
+      <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License" />
+    </a>
+    <a href="https://github.com/akshayejh/green-bot/stargazers">
+      <img src="https://img.shields.io/github/stars/akshayejh/green-bot?style=flat-square&color=yellow" alt="Stars" />
+    </a>
+  </p>
+
+  <p>
     <a href="https://github.com/akshayejh/green-bot/releases/latest">
       <img src="https://img.shields.io/github/v/release/akshayejh/green-bot?label=Download&style=for-the-badge&color=00C853" alt="Download" />
     </a>
@@ -18,7 +33,6 @@
 
   <p>
     <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platform" />
-    <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
   </p>
 
   <br />
