@@ -60,7 +60,7 @@ Choose your platform to download the latest version:
 > xattr -cr /Applications/Green\ Bot.app
 > ```
 >
-> This is normal for open-source apps not distributed through the App Store. [Learn why →](INSTALL.md#macos-app-is-damaged-and-cant-be-opened)
+> This is normal for open-source apps not distributed through the App Store. [Learn why →](docs/INSTALL.md#macos-app-is-damaged-and-cant-be-opened)
 
 ### One-Line Install (Terminal)
 
@@ -76,7 +76,7 @@ curl -fsSL https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/in
 iwr -useb https://raw.githubusercontent.com/akshayejh/green-bot/main/scripts/install.ps1 | iex
 ```
 
-📖 Need help? See the [Installation Guide](INSTALL.md) for step-by-step instructions and troubleshooting.
+📖 Need help? See the [Installation Guide](docs/INSTALL.md) for step-by-step instructions and troubleshooting.
 
 ---
 
@@ -93,7 +93,7 @@ Green Bot automatically detects Android devices connected via USB or WiFi.
 - **Device dashboard** — See model, Android version, storage, and battery at a glance
 - **Multiple devices** — Connect several devices and switch between them easily
 
-→ [First-time setup guide](INSTALL.md#-first-time-setup) (2 minutes)
+→ [First-time setup guide](docs/INSTALL.md#-first-time-setup) (2 minutes)
 
 ---
 
@@ -245,7 +245,7 @@ Green Bot is open source and welcomes contributions!
 
 | Document                                                    | Description                               |
 | ----------------------------------------------------------- | ----------------------------------------- |
-| [Installation Guide](docs/INSTALL.md)                       | Download, install, and troubleshoot       |
+| [Installation Guide](docs/)                       | Download, install, and troubleshoot       |
 | [Contributing Guide](.github/CONTRIBUTING.md)               | Set up dev environment, build from source |
 | [Roadmap](docs/ROADMAP.md)                                  | Planned features and future ideas         |
 | [Releases](https://github.com/akshayejh/green-bot/releases) | Download previous versions                |
