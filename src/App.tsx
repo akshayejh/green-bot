@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { AppSidebar } from "@/components/app-sidebar"
 import { DeviceList } from "@/features/devices/device-list"
+import { DeviceInfoPage } from "@/features/device-info/device-info-page"
+import { DiagnosticsPage } from "@/features/diagnostics/diagnostics-page"
 import { FileManager } from "@/features/files/file-manager"
 import { TerminalView } from "@/features/terminal/terminal-view"
 import { LogViewer } from "@/features/adb-logs/log-viewer"
@@ -93,7 +95,13 @@ export default function App() {
               <DeviceList />
             </div>
 
+            <div className={cn("absolute inset-0 flex flex-col bg-background", currentView === "device-info" ? "z-10" : "z-0 hidden")}>
+              <DeviceInfoPage />
+            </div>
 
+            <div className={cn("absolute inset-0 flex flex-col bg-background", currentView === "diagnostics" ? "z-10" : "z-0 hidden")}>
+              <DiagnosticsPage />
+            </div>
 
             <div className={cn("absolute inset-0 flex flex-col bg-background", currentView === "mirror" ? "z-10" : "z-0 hidden")}>
               <ScreenMirror />

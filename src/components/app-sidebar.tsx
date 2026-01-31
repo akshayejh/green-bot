@@ -10,6 +10,8 @@ import {
   Package,
   Settings,
   RefreshCw,
+  Info,
+  Activity,
 } from "lucide-react"
 import { invoke } from "@tauri-apps/api/core"
 import { toast } from "sonner"
@@ -41,6 +43,16 @@ const data = {
     },
   ],
   tools: [
+    {
+      title: "Device Info",
+      icon: Info,
+      id: "device-info",
+    },
+    {
+      title: "Diagnostics",
+      icon: Activity,
+      id: "diagnostics",
+    },
     {
       title: "Screen Mirror",
       icon: Monitor,

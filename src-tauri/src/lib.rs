@@ -1,7 +1,7 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 mod commands;
 
-use commands::{adb, files, logs, mirror, packages, terminal};
+use commands::{adb, diagnostics, files, logs, mirror, packages, terminal};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -25,11 +25,16 @@ pub fn run() {
             adb::adb_connect,
             adb::adb_pair,
             adb::restart_adb_server,
+            adb::get_device_info,
             files::list_files,
             files::download_file,
             files::upload_file,
             files::read_file_content,
             files::delete_file,
+            files::create_folder,
+            files::rename_file,
+            files::move_file,
+            files::copy_file,
             terminal::run_adb_command,
             logs::get_adb_logs,
             mirror::start_screen_mirror,
@@ -43,7 +48,16 @@ pub fn run() {
             packages::disable_package,
             packages::clear_package_data,
             packages::force_stop_package,
-            packages::launch_package
+            packages::launch_package,
+            diagnostics::get_device_diagnostics,
+            diagnostics::run_touch_test,
+            diagnostics::inject_touch,
+            diagnostics::set_brightness,
+            diagnostics::toggle_wifi,
+            diagnostics::toggle_bluetooth,
+            diagnostics::simulate_battery_level,
+            diagnostics::reset_battery_simulation,
+            diagnostics::trigger_vibration
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

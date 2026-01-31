@@ -1,18 +1,69 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { RefreshCw, Smartphone, Check, Plus, Wifi, Cpu, Layers, Settings, Tablet, Tv, Watch, Monitor, Laptop, Car, Gamepad, Glasses, Box, MoreVertical } from "lucide-react";
+import { RefreshCw, Smartphone, Check, Plus, Wifi, Cpu, Layers, Settings, Tablet, Tv, Watch, Monitor, Laptop, Car, Gamepad, Glasses, Box, MoreVertical, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDeviceStore } from "@/store/device-store";
 import { Toolbar, ToolbarLeft, ToolbarRight } from "@/components/toolbar";
 import { AddDeviceDialog } from "@/components/add-device-dialog";
 import { DeviceEditDialog } from "@/components/device-edit-dialog";
+import { invoke } from "@tauri-apps/api/core";
+import { toast } from "sonner";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+/**
+ * Parse raw ADB errors into user-friendly messages
+ */
+function parseAdbError(error: string): { message: string; canRestart: boolean } {
+    const errorLower = error.toLowerCase();
+
+    if (errorLower.includes("daemon not running") || errorLower.includes("failed to start daemon") || errorLower.includes("adb server didn't ack")) {
+        return {
+            message: "ADB server is not running or encountered an issue starting up.",
+            canRestart: true
+        };
+    }
+
+    if (errorLower.includes("address already in use") || errorLower.includes("cannot connect to daemon")) {
+        return {
+            message: "ADB server port conflict detected. Another ADB instance may be running.",
+            canRestart: true
+        };
+    }
+
+    if (errorLower.includes("no devices") || errorLower.includes("device not found")) {
+        return {
+            message: "No devices found. Make sure USB debugging is enabled and the device is connected.",
+            canRestart: false
+        };
+    }
+
+    if (errorLower.includes("unauthorized")) {
+        return {
+            message: "Device is unauthorized. Please check your device and approve the USB debugging prompt.",
+            canRestart: false
+        };
+    }
+
+    if (errorLower.includes("offline")) {
+        return {
+            message: "Device is offline. Try reconnecting the USB cable or restarting ADB.",
+            canRestart: true
+        };
+    }
+
+    // For unknown errors, show a truncated version
+    const truncated = error.length > 100 ? error.substring(0, 100) + "..." : error;
+    return {
+        message: truncated,
+        canRestart: true
+    };
+}
 
 const ICONS = {
     smartphone: Smartphone,
@@ -53,6 +104,19 @@ export function DeviceList() {
         refreshDevices();
         setAddDialogOpen(false);
     };
+
+    const handleRestartAdb = async () => {
+        const toastId = toast.loading("Restarting ADB server...");
+        try {
+            await invoke("restart_adb_server");
+            toast.success("ADB server restarted", { id: toastId });
+            refreshDevices();
+        } catch (err) {
+            toast.error(`Failed to restart ADB: ${err}`, { id: toastId });
+        }
+    };
+
+    const parsedError = error ? parseAdbError(error) : null;
 
     return (
         <div className="flex flex-col h-full bg-background/50">
@@ -98,11 +162,32 @@ export function DeviceList() {
 
             <div className="flex-1 p-6 overflow-y-auto">
 
-                {error ? (
-                    <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive flex items-center gap-2 mb-6">
-                        <span className="font-semibold">Error:</span> {error}
+                {parsedError && (
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 mb-6">
+                        <div className="flex items-start gap-3">
+                            <div className="p-2 rounded-lg bg-amber-500/20 text-amber-600 dark:text-amber-400 shrink-0">
+                                <AlertTriangle className="h-5 w-5" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <h4 className="font-medium text-amber-700 dark:text-amber-300 mb-1">Connection Issue</h4>
+                                <p className="text-sm text-amber-600/90 dark:text-amber-400/90">
+                                    {parsedError.message}
+                                </p>
+                            </div>
+                            {parsedError.canRestart && (
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={handleRestartAdb}
+                                    className="shrink-0 border-amber-500/30 text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 hover:border-amber-500/50"
+                                >
+                                    <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
+                                    Restart ADB
+                                </Button>
+                            )}
+                        </div>
                     </div>
-                ) : null}
+                )}
 
                 <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                     {loading && devices.length === 0

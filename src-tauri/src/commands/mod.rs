@@ -1,4 +1,5 @@
 pub mod adb;
+pub mod diagnostics;
 pub mod files;
 pub mod logs;
 pub mod mirror;

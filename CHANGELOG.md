@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0] - 2026-01-31
+
+### Added
+
+- **Device Info page** - Comprehensive device information dashboard with system, hardware, battery, storage, network, and build details
+- **Device Diagnostics page** - Hardware testing and diagnostics with battery health, display info, sensor detection, connectivity status, and test actions (brightness control, WiFi/Bluetooth toggles, battery simulation, vibration test)
+- **File Manager: Create Folder** - New folder button in toolbar with dialog
+- **File Manager: Rename** - Rename files/folders via context menu or F2 shortcut
+- **File Manager: Copy/Cut/Paste** - Full clipboard support for moving and copying files
+- **File Manager: Multi-Select** - Checkbox selection for batch operations (delete, copy, cut)
+- **File Manager: Search** - Filter files in current directory with search input
+- **File Manager: Bookmarks** - Save frequently accessed paths with quick navigation dropdown
+
+### Changed
+
+- ADB errors now display user-friendly messages instead of raw technical output
+- Added "Restart ADB" quick action button directly in error message
+- Refined dark mode color palette: reduced green tint, improved border visibility, better contrast
+- File list now uses checkboxes for intuitive multi-selection
+
+### Fixed
+
+- "Resume Auto-scroll" button in log viewer now visible with proper styling
+
+---
+
 ## [1.2.1] - 2026-01-25
 
 ### Added

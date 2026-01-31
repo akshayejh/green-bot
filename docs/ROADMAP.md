@@ -17,27 +17,6 @@ This document outlines planned features and improvements for Green Bot. Features
 - **Open in Settings**: Quick button to open app's settings page on device
 - **Batch Operations**: Select multiple apps for bulk uninstall/disable/enable
 
-### File Manager Enhancements
-
-- **Create New Folder**: Right-click or toolbar option to create directories
-- **Rename Files/Folders**: In-place rename with F2 or context menu
-- **Move/Cut Operations**: Cut-paste workflow for moving files
-- **Multi-Select**: Shift/Ctrl+click for batch download/delete operations
-- **Search Files**: Search within current directory or recursively
-- **Bookmarked Paths**: Save frequently accessed directories
-
-### Device Information Dashboard
-
-- **Battery Status**: Level, charging state, health, temperature
-- **Storage Overview**: Visual breakdown of used/free space by category
-- **Memory Usage**: RAM usage with app breakdown
-- **Network Info**: IP address, WiFi SSID, connection state
-- **Quick Device Specs**: Model, Android version, build number, serial
-
----
-
-## 🚀 Medium Priority
-
 ### Screenshots & Recording
 
 - **Take Screenshot**: Capture device screen with one click
@@ -45,13 +24,15 @@ This document outlines planned features and improvements for Green Bot. Features
 - **Screenshot History**: Gallery of recent captures with quick actions
 - **Annotation Tools**: Basic markup before saving/sharing
 
+---
+
+## 🚀 Medium Priority
+
 ### Quick Actions & Controls
 
 - **Reboot Options**: Normal reboot, bootloader, recovery, fastboot
 - **Input Controls**: Send text, key events, simulate taps
-- **Toggle Settings**: WiFi, Bluetooth, mobile data, airplane mode
 - **Volume Control**: Adjust media/ring/notification volumes
-- **Brightness Control**: Adjust screen brightness remotely
 
 ### Developer Tools
 
@@ -125,6 +106,9 @@ This document outlines planned features and improvements for Green Bot. Features
 
 ## ✅ Recently Completed
 
+- [x] **Device Diagnostics** - Hardware testing dashboard with battery health, display info, sensor detection, connectivity status, and test actions (brightness, WiFi/Bluetooth toggles, battery simulation, vibration)
+- [x] **File Manager Enhancements** - Create folder, rename, copy/cut/paste, multi-select with checkboxes, search, and bookmarks
+- [x] **Device Information Dashboard** - Full device info page with system, hardware, battery, storage, network, and build details
 - [x] File delete with confirmation dialog
 - [x] Curated app name database (300+ apps)
 - [x] Copy buttons on package details

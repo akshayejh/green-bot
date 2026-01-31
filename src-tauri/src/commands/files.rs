@@ -141,3 +141,78 @@ pub async fn delete_file(app: AppHandle, device: String, path: String) -> Result
         Err(String::from_utf8_lossy(&output.stderr).to_string())
     }
 }
+
+#[tauri::command]
+pub async fn create_folder(app: AppHandle, device: String, path: String) -> Result<String, String> {
+    let adb_path = resolve_adb_path(&app);
+    let output = Command::new(&adb_path)
+        .args(&["-s", &device, "shell", "mkdir", "-p", &path])
+        .output()
+        .map_err(|e| format!("Failed to execute adb mkdir: {}", e))?;
+
+    if output.status.success() {
+        Ok("Folder created".to_string())
+    } else {
+        Err(String::from_utf8_lossy(&output.stderr).to_string())
+    }
+}
+
+#[tauri::command]
+pub async fn rename_file(
+    app: AppHandle,
+    device: String,
+    old_path: String,
+    new_path: String,
+) -> Result<String, String> {
+    let adb_path = resolve_adb_path(&app);
+    let output = Command::new(&adb_path)
+        .args(&["-s", &device, "shell", "mv", &old_path, &new_path])
+        .output()
+        .map_err(|e| format!("Failed to execute adb mv: {}", e))?;
+
+    if output.status.success() {
+        Ok("Rename successful".to_string())
+    } else {
+        Err(String::from_utf8_lossy(&output.stderr).to_string())
+    }
+}
+
+#[tauri::command]
+pub async fn move_file(
+    app: AppHandle,
+    device: String,
+    source_path: String,
+    dest_path: String,
+) -> Result<String, String> {
+    let adb_path = resolve_adb_path(&app);
+    let output = Command::new(&adb_path)
+        .args(&["-s", &device, "shell", "mv", &source_path, &dest_path])
+        .output()
+        .map_err(|e| format!("Failed to execute adb mv: {}", e))?;
+
+    if output.status.success() {
+        Ok("Move successful".to_string())
+    } else {
+        Err(String::from_utf8_lossy(&output.stderr).to_string())
+    }
+}
+
+#[tauri::command]
+pub async fn copy_file(
+    app: AppHandle,
+    device: String,
+    source_path: String,
+    dest_path: String,
+) -> Result<String, String> {
+    let adb_path = resolve_adb_path(&app);
+    let output = Command::new(&adb_path)
+        .args(&["-s", &device, "shell", "cp", "-r", &source_path, &dest_path])
+        .output()
+        .map_err(|e| format!("Failed to execute adb cp: {}", e))?;
+
+    if output.status.success() {
+        Ok("Copy successful".to_string())
+    } else {
+        Err(String::from_utf8_lossy(&output.stderr).to_string())
+    }
+}
